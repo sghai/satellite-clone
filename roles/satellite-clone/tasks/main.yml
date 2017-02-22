@@ -7,16 +7,16 @@
 - name: Identify the hostname from the backup config tar file
   shell: tar zxf {{ backup_dir }}/config_files.tar.gz etc/foreman-proxy/settings.yml --to-stdout | grep foreman_url |sed 's#.*/##'
   register: backup_hostname_result
-- name: Check that the hostname is not none
-  fail: msg="Unable to derive Satellite hostname from the backup config file - value ({{ backup_hostname_result.stdout }}) doesn't look right"
-  when: backup_hostname_result.stderr
+#- name: Check that the hostname is not none
+#  fail: msg="Unable to derive Satellite hostname from the backup config file - value ({{ backup_hostname_result.stdout }}) doesn't look right"
+#  when: backup_hostname_result.stderr
 - name: set hostname
   set_fact:
     hostname: "{{ backup_hostname_result.stdout }}"
 
-- name: Check that mandatory variables are updated
-  fail: msg="Please update the variables in satellite-clone-vars.yml (after copying satellite-clone-vars.sample.yml)"
-  when: (activationkey == "changeme") or (org == "changeme")
+#- name: Check that mandatory variables are updated
+#  fail: msg="Please update the variables in satellite-clone-vars.yml (after copying satellite-clone-vars.sample.yml)"
+#  when: (activationkey == "changeme") or (org == "changeme")
 
 # Register/subscribe the VM
 - name: register host

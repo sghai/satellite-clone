@@ -15,7 +15,7 @@
 
 - name: set satellite_version to 6.1 if satellite_answers.yaml does not exist
   set_fact:
-    satellite_version: 6.1
+    satellite_version: 6.2
   when: satellite_answers.rc != 0
 
 - include: backup_check.yml

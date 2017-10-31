@@ -20,6 +20,10 @@
   command: "tar --selinux --overwrite -xf {{ backup_dir }}/mongo_data.tar.gz -C /"
   when: standard_backup
 
+- name: Restore selinux context on the filesystem
+  command: restorecon -R /
+  when: restorecon
+
 - name: Start mongod
   service: name=mongod state=started
 

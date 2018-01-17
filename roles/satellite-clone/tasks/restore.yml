@@ -16,6 +16,12 @@
   command: "tar --selinux --overwrite -xf {{ backup_dir }}/pulp_data.tar --exclude=var/lib/pulp/katello-export -C /"
   when: clone_pulp_data_exists
 
+- name: Wait restore to complete
+  command: sleep 300
+
+- name: Remove pulp data tar
+  command: "rm -rf {{ backup_dir }}/pulp_data.tar"
+
 - name: Restore mongo data
   command: "tar --selinux --overwrite -xf {{ backup_dir }}/mongo_data.tar.gz -C /"
   when: standard_backup
